@@ -69,7 +69,7 @@ python -m venv hailo-venv
 Activate the virtual environement
 
 ```bash
- source hailo-venv/bin/activate
+source hailo-venv/bin/activate
 ```
 
 ### 5. Prepare the virtual environment
@@ -77,23 +77,32 @@ Activate the virtual environement
 Install hailo packages:
 
 ```bash
-pip install hailo_dataflow_compiler-*.whl hailo_model_zoo-*.whl
+pip install ressources/hailo_dataflow_compiler-*.whl ressources/hailo_model_zoo-*.whl
 ```
 
-### 6. Get model configuration file
-
-Download the YAML configuration from the [networks configuration directory](https://github.com/hailo-ai/hailo_model_zoo/tree/833ae6175c06dbd6c3fc8faeb23659c9efaa2dbe/hailo_model_zoo/cfg/networks): `yolov8s.yaml`
-
-### 7. Set up the NMS configuration file:
+### 6. Set up the NMS configuration file:
 
 Create the postprocess_config folder:
 
 ```bash
-cd ~/lib/python3.10/site-packages/hailo_model_zoo/cfg/
-mkdir -p postprocess_config
+mkdir -p hailo-venv/lib/python3.10/site-packages/hailo_model_zoo/cfg/postprocess_config
 ```
 
 To obtain `yolov8s_nms_config.json`:
 - Locate the zip URL in the YAML file above
 - Download and extract the archive
 - Copy the JSON file to the`postprocess_config` directory
+
+### 7. Get model configuration file
+
+Download the YAML configuration from the [networks configuration directory](https://github.com/hailo-ai/hailo_model_zoo/tree/833ae6175c06dbd6c3fc8faeb23659c9efaa2dbe/hailo_model_zoo/cfg/networks): `yolov8s.yaml`
+
+```bash
+mkdir tmp &&
+
+git clone --depth 1 https://github.com/hailo-ai/hailo_model_zoo.git tmp/hailo_model_zoo &&
+cp tmp/hailo_model_zoo/hailo_model_zoo/cfg/networks/yolov8s.yaml tmp/model.conf.yaml &&
+
+curl -o tmp/model.zip $( grep -ohE "https:\/\/hailo-model-zoo.+\.zip" tmp/model.conf.yaml ) &&
+unzip -d hailo-venv/lib/python3.10/site-packages/hailo_model_zoo/cfg/postprocess_config tmp/model.zip 
+```

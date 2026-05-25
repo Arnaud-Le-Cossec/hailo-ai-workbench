@@ -1,2 +1,4 @@
 *.whl
-env
+*-venv
+tmp
+.python-version
