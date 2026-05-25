@@ -30,6 +30,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init - bash)"
 ```
 
+Install the `pyenv-virtualenv` plugin
+
+```bash
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+```
+
 ### 1. Install python 3.10
 
 With **pyenv**, you can easily install python `3.10` with the following command:
